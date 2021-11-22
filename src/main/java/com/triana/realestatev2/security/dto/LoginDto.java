@@ -1,4 +1,4 @@
-package com.triana.realestatev2.Security.dto;
+package com.triana.realestatev2.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

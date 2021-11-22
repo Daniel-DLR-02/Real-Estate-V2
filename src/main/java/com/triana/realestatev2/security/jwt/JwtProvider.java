@@ -1,4 +1,4 @@
-package com.triana.realestatev2.Security.jwt;
+package com.triana.realestatev2.security.jwt;
 import com.triana.realestatev2.users.model.Usuario;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
