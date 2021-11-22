@@ -47,9 +47,8 @@ public class Usuario implements UserDetails {
 
     private UsuarioRole role;
 
-    @OneToMany
-    @Builder.Default
-    private List<Inmobiliaria> inmobiliaria = new ArrayList<>();
+    @ManyToOne
+    private Inmobiliaria inmobiliaria;
 
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)

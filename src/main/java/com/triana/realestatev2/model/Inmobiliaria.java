@@ -1,5 +1,6 @@
 package com.triana.realestatev2.model;
 
+import com.triana.realestatev2.users.model.Usuario;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,10 @@ public class Inmobiliaria {
     @Builder.Default
     @OneToMany(mappedBy = "inmobiliaria")
     private List<Vivienda> viviendas = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany
+    private List<Usuario> gestores = new ArrayList<>();
 
     public Inmobiliaria(Long id , String nombre, String email, String telefono) {
         this.id=id;
