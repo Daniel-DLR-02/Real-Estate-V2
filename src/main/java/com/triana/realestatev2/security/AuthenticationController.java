@@ -1,9 +1,9 @@
-package com.triana.realestatev2.Security;
+package com.triana.realestatev2.security;
 
 
-import com.triana.realestatev2.Security.dto.JwtUsuarioResponse;
-import com.triana.realestatev2.Security.dto.LoginDto;
-import com.triana.realestatev2.Security.jwt.JwtProvider;
+import com.triana.realestatev2.security.dto.JwtUsuarioResponse;
+import com.triana.realestatev2.security.dto.LoginDto;
+import com.triana.realestatev2.security.jwt.JwtProvider;
 import com.triana.realestatev2.users.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

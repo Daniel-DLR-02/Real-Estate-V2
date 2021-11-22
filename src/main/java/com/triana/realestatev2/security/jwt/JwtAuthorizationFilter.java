@@ -1,15 +1,11 @@
-package com.triana.realestatev2.Security.jwt;
+package com.triana.realestatev2.security.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

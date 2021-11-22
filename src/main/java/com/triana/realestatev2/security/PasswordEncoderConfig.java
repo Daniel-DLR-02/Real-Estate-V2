@@ -1,4 +1,4 @@
-package com.triana.realestatev2.Security;
+package com.triana.realestatev2.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
