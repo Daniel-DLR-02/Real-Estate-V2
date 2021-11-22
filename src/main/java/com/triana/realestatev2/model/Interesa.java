@@ -1,10 +1,10 @@
 package com.triana.realestatev2.model;
 
+import com.triana.realestatev2.users.model.Usuario;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor
@@ -12,7 +12,26 @@ import javax.persistence.Id;
 @Builder
 public class Interesa {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Builder.Default
+    @EmbeddedId
+    private InteresaPK id = new InteresaPK();
+
+    @ManyToOne
+    @MapsId("vivienda_id")
+    @JoinColumn(name="vivienda_id")
+    private Vivienda vivienda;
+
+    @ManyToOne
+    @MapsId("usuario_id")
+    @JoinColumn(name="usuario_id")
+    private Usuario usuario;
+
+    private LocalDate createdDate;
+
+    @Lob
+    private String mensaje;
+
+
+
+
 }

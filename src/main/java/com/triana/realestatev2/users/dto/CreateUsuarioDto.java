@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateUserDto {
+public class CreateUsuarioDto {
 
     private String nombre;
     private String apellidos;
@@ -16,5 +16,6 @@ public class CreateUserDto {
     private String telefono;
     private String avatar;
     private String password;
+    private String password2;
 
 }

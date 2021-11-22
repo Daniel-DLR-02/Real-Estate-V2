@@ -1,8 +1,12 @@
 package com.triana.realestatev2.Security;
 
+import com.triana.realestatev2.Security.jwt.JwtAccessDeniedHandler;
+import com.triana.realestatev2.Security.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,11 +27,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtAccessDeniedHandler accessDeniedHandler;
+    private final JwtAuthorizationFilter filter;
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -35,21 +41,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests();
-        //Poner las peticiones con sus correspondientes roles.
+                .authorizeRequests()
+                //.antMatchers(HttpMethod.POST, "/vivienda/").hasRole("PROPIETARIO")
+                .antMatchers(HttpMethod.POST, "/auth/**").anonymous()
+                .antMatchers(HttpMethod.GET,"/h2-console/**").anonymous()//Arreglar mañana
+                .antMatchers(HttpMethod.POST,"/auth/register/gestor").hasAnyRole("ADMIN")
+                .anyRequest().authenticated();
 
-        //Aniadir el filtro
-        http.addFilterBefore(null, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
+
     }
+
 
     @Bean
     @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception {
-        return super.userDetailsServiceBean();
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
