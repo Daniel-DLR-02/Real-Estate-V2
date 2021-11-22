@@ -1,5 +1,6 @@
 package com.triana.realestatev2.model;
 
+import com.triana.realestatev2.users.model.Usuario;
 import lombok.*;
 
 import javax.persistence.*;
@@ -50,6 +51,10 @@ public class Vivienda {
 
     private boolean tieneGaraje;
 
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "id_propietario")
+    private Usuario propietario;
+
     @ManyToOne
     @JoinColumn(name = "id_inmobiliaria")
     private Inmobiliaria inmobiliaria;
@@ -81,6 +86,41 @@ public class Vivienda {
     }
 
     //TODO :Hacer helpers
+
+    public void addInmobiliaria(Inmobiliaria inmo) {
+        inmobiliaria = inmo;
+        if (inmo.getViviendas() == null) {
+            inmo.setViviendas(new ArrayList());
+            inmo.getViviendas().add(this);
+        } else {
+            inmo.getViviendas().add(this);
+        }
+    }
+
+    public void removeInmobiliaria() {
+        if (this.inmobiliaria != null)
+            this.inmobiliaria.getViviendas().remove(this);
+        inmobiliaria = null;
+    }
+
+    public void addPropietario(Usuario u) {
+
+        this.propietario = u;
+        if (u.getViviendas() == null) {
+            u.setViviendas(new ArrayList());
+            u.getViviendas().add(this);
+        } else {
+            u.getViviendas().add(this);
+        }
+
+    }
+
+    public void removePropietario() {
+        if (this.propietario != null)
+            this.propietario.getViviendas().remove(this);
+        this.propietario = null;
+    }
+
 
 
 }
