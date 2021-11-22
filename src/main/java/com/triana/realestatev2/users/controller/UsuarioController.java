@@ -20,7 +20,27 @@ public class UsuarioController {
 
     @PostMapping("/auth/register/user")
     public ResponseEntity<GetUsuarioDto> nuevoUsuario(@RequestBody CreateUsuarioDto nuevoUsuario){
-        Usuario saved = usuarioService.save(nuevoUsuario);
+        Usuario saved = usuarioService.saveProp(nuevoUsuario);
+
+        if(saved == null)
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioDto(saved));
+    }
+
+    @PostMapping("/auth/register/gestor")
+    public ResponseEntity<GetUsuarioDto> nuevoGestor(@RequestBody CreateUsuarioDto nuevoUsuario){
+        Usuario saved = usuarioService.saveGestor(nuevoUsuario);
+
+        if(saved == null)
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioDto(saved));
+    }
+
+    @PostMapping("/auth/register/admin")
+    public ResponseEntity<GetUsuarioDto> nuevoAdmin(@RequestBody CreateUsuarioDto nuevoUsuario){
+        Usuario saved = usuarioService.saveAdmin(nuevoUsuario);
 
         if(saved == null)
             return ResponseEntity.badRequest().build();
