@@ -50,16 +50,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers(HttpMethod.POST, "/vivienda/").hasRole("PROPIETARIO")
                 .antMatchers(HttpMethod.POST, "/auth/register/user").anonymous()
                 .antMatchers(HttpMethod.POST, "/auth/login").anonymous()
-                .antMatchers(HttpMethod.GET,"/propietario/").permitAll()
-                .antMatchers(HttpMethod.GET,"/h2-console/**").anonymous()//Arreglar mañana
-                .antMatchers(HttpMethod.POST,"/auth/register/gestor").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/auth/register/admin").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/propietario/").authenticated()
+                .antMatchers(HttpMethod.GET,"/h2-console/**").anonymous()//Arreglar h2-console
+                .antMatchers(HttpMethod.POST,"/h2-console/**").anonymous()
+                .antMatchers(HttpMethod.POST,"/auth/register/gestor").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST,"/auth/register/admin").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-
         http.headers().frameOptions().disable();
-
 
 
     }
