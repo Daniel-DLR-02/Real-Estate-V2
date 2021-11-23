@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.UUID;
 
 @Log
 @Service
@@ -48,7 +49,7 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setHeaderParam("typ", TOKEN_TYPE)
-                .setSubject(Long.toString(user.getId()))
+                .setSubject(user.getId().toString())
                 .setIssuedAt(tokenExpirationDate)
                 .claim("email", user.getEmail())
                 .claim("role", user.getRole().name())

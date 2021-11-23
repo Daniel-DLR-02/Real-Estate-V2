@@ -15,4 +15,16 @@ public class UsuarioDtoConverter {
                 .build();
 
     }
+
+    public GetUsuarioPropietarioDto usuarioToGetUsuarioPropietarioDto(Usuario u){
+        return GetUsuarioPropietarioDto.builder()
+                .nombre(u.getNombre())
+                .apellidos(u.getApellidos())
+                .direccion(u.getDireccion())
+                .email(u.getEmail())
+                .telefono(u.getTelefono())
+                .avatar(u.getAvatar())
+                .build();
+    }
+
 }

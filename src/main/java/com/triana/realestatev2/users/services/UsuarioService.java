@@ -5,6 +5,7 @@ import com.triana.realestatev2.service.InmobiliariaService;
 import com.triana.realestatev2.service.base.BaseService;
 import com.triana.realestatev2.users.dto.CreateUsuarioDto;
 import com.triana.realestatev2.users.dto.CreateUsuarioGestorDto;
+import com.triana.realestatev2.users.dto.GetUsuarioPropietarioDto;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
 import com.triana.realestatev2.users.repos.UsuarioRepository;
@@ -74,7 +75,7 @@ public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository
 
             if(inmobiliariaBuscada.isPresent())
                 usuario.addInmobiliaria(inmobiliariaBuscada.get());
-            
+
             return save(usuario);
         }else{
             return null;
@@ -107,4 +108,15 @@ public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository
         }
 
     }
+    /*
+    public GetUsuarioPropietarioDto buscarPropietario(Long id){
+
+        Optional<Usuario> usuario = repositorio.findById(id);
+
+        if(usuario.isPresent() && usuario.get().getRole().equals(UsuarioRole.ADMIN)){
+
+        }
+    }
+
+     */
 }
