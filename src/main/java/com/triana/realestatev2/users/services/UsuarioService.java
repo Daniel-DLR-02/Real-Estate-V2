@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userDetailService")
 @RequiredArgsConstructor
 public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository> implements UserDetailsService {
@@ -22,11 +24,10 @@ public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
         return this.repositorio.findFirstByEmail(email)
                 .orElseThrow(()-> new UsernameNotFoundException(email+ "no encontrado"));
-    }//Preguntar mañana
+    }
 
     public Usuario saveProp(CreateUsuarioDto nuevoUser){
-        //Preguntar mañana por la validación de contraseñas
-        //Preguntar mañana sobre el rol inicial a asignar
+
         if (nuevoUser.getPassword().contentEquals(nuevoUser.getPassword2())) {
             Usuario usuario = Usuario.builder()
                     .nombre(nuevoUser.getNombre())
@@ -47,8 +48,7 @@ public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository
     }
 
     public Usuario saveGestor(CreateUsuarioDto nuevoUser){
-        //Preguntar mañana por la validación de contraseñas
-        //Preguntar mañana sobre el rol inicial a asignar
+
         if (nuevoUser.getPassword().contentEquals(nuevoUser.getPassword2())) {
             Usuario usuario = Usuario.builder()
                     .nombre(nuevoUser.getNombre())
@@ -67,9 +67,12 @@ public class UsuarioService extends BaseService<Usuario, Long, UsuarioRepository
 
     }
 
+    public List<Usuario> loadUserByRol(UsuarioRole role) throws UsernameNotFoundException {
+        return this.repositorio.findByRole(role);
+    }
+
     public Usuario saveAdmin(CreateUsuarioDto nuevoUser){
-        //Preguntar mañana por la validación de contraseñas
-        //Preguntar mañana sobre el rol inicial a asignar
+
         if (nuevoUser.getPassword().contentEquals(nuevoUser.getPassword2())) {
             Usuario usuario = Usuario.builder()
                     .nombre(nuevoUser.getNombre())

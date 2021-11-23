@@ -4,12 +4,17 @@ import com.triana.realestatev2.users.dto.CreateUsuarioDto;
 import com.triana.realestatev2.users.dto.GetUsuarioDto;
 import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
 import com.triana.realestatev2.users.model.Usuario;
+import com.triana.realestatev2.users.model.UsuarioRole;
 import com.triana.realestatev2.users.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +31,13 @@ public class UsuarioController {
             return ResponseEntity.badRequest().build();
         else
             return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioDto(saved));
+    }
+
+    @GetMapping("/propietario/")
+    public ResponseEntity<List<Usuario>> getPropietarios(){
+        List<Usuario> listaPropietarios = usuarioService.loadUserByRol(UsuarioRole.PROPIETARIO);
+
+        return ResponseEntity.ok(listaPropietarios);
     }
 
     @PostMapping("/auth/register/gestor")
