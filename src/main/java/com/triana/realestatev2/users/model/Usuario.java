@@ -45,6 +45,7 @@ public class Usuario implements UserDetails {
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private UsuarioRole role;
 
     @ManyToOne
@@ -98,5 +99,15 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
 
         return true;
+    }
+
+    public void addInmobiliaria(Inmobiliaria inmo){
+        this.inmobiliaria = inmo;
+        inmo.getGestores().add(this);
+    }
+
+    public void removeInmobiliaria(Inmobiliaria inmo){
+        inmo.getGestores().remove(this);
+        this.inmobiliaria = null;
     }
 }

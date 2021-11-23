@@ -1,0 +1,10 @@
+insert into INMOBILIARIA (id, nombre, email, telefono) values ( 1, 'idealista', ' redaccion@idealista.com', '+ (34) 91 788 34 31.');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (2, 'Melibero', 'rgpd@catrealestate.com', '934.671.115');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (3, 'HomeSeller', 'enquiry@homeseller.sg', '+65 9221 2291');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (4, 'Habitat', 'redaccion@habitat.com', '(+34) 912 170 531 ');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (5, 'real', 'social@housfy.com', '911 23 79 75');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (6, 'Housfy', 'dbeeken5@example.com', '233-784-0316');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (7, 'MELIBERO', 'pmenichelli6@behance.net', '587-400-9614');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (8, 'netHousers', 'pbuyers7@apple.com', '165-772-3261');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (9, 'TIKO', 'jwyllis8@drupal.org', '994-537-6976');
+insert into INMOBILIARIA (id, nombre, email, telefono) values (10, 'PROPERTISTA', 'spughsley9@ow.ly', '946-811-6447');

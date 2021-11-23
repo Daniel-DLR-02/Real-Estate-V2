@@ -1,6 +1,7 @@
 package com.triana.realestatev2.users.controller;
 
 import com.triana.realestatev2.users.dto.CreateUsuarioDto;
+import com.triana.realestatev2.users.dto.CreateUsuarioGestorDto;
 import com.triana.realestatev2.users.dto.GetUsuarioDto;
 import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
 import com.triana.realestatev2.users.model.Usuario;
@@ -41,9 +42,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/auth/register/gestor")
-    public ResponseEntity<GetUsuarioDto> nuevoGestor(@RequestBody CreateUsuarioDto nuevoUsuario){
+    public ResponseEntity<GetUsuarioDto> nuevoGestor(@RequestBody CreateUsuarioGestorDto nuevoUsuario){
         Usuario saved = usuarioService.saveGestor(nuevoUsuario);
-
         if(saved == null)
             return ResponseEntity.badRequest().build();
         else
