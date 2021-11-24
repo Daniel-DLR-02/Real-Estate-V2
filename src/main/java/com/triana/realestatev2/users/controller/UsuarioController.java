@@ -38,9 +38,11 @@ public class UsuarioController {
     }
 
     @GetMapping("/propietario/")
-    public ResponseEntity<List<Usuario>> getPropietarios(){
-        List<Usuario> listaPropietarios = usuarioService.loadUserByRol(UsuarioRole.PROPIETARIO);
-
+    public ResponseEntity<List<GetUsuarioDto>> getPropietarios(){
+        List<GetUsuarioDto> listaPropietarios = new ArrayList<>();
+        usuarioService.findProps().stream().forEach(v->{
+            listaPropietarios.add(usuarioDtoConverter.usuarioToGetUsuarioDto(v));
+        });
         return ResponseEntity.ok(listaPropietarios);
     }
 
