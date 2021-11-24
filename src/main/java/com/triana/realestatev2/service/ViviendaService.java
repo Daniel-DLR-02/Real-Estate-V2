@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service;
 public class ViviendaService
         extends BaseService<Vivienda,Long, ViviendaRepository> {
 
+
 }
