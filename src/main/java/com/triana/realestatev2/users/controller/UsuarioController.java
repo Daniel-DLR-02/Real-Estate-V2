@@ -5,8 +5,11 @@ import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
 import com.triana.realestatev2.users.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,16 +64,15 @@ public class UsuarioController {
     }
 
     @GetMapping("/propietario/{id}")
-    public ResponseEntity<GetUsuarioPropietarioDto> findProp(@PathVariable UUID id, Authentication authentication) {
+    public ResponseEntity<?> findProp(@PathVariable UUID id, @AuthenticationPrincipal Usuario userActual) {
 
         Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
 
-
         if (usuarioBuscado.isPresent()){
-            if (authentication.equals(usuarioBuscado) || authentication.equals(UsuarioRole.ADMIN)) {
+            if (userActual.getId().equals(usuarioBuscado.get().getId()) || userActual.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
                 return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioPropietarioDto(usuarioBuscado.get()));
             } else {
-                return ResponseEntity.badRequest().build();
+                return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
             }
         }
         else{

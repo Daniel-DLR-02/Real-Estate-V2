@@ -43,7 +43,7 @@ public class UsuarioService extends BaseService<Usuario, UUID, UsuarioRepository
     }
 
     public Usuario saveProp(CreateUsuarioDto nuevoUser){
-
+        //Hacer excepción de correo repetido
         if (nuevoUser.getPassword().contentEquals(nuevoUser.getPassword2())) {
             Usuario usuario = Usuario.builder()
                     .nombre(nuevoUser.getNombre())
