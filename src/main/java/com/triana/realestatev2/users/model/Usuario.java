@@ -21,11 +21,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//Preguntar mañana por el AuditingEntityListener.class
 public class Usuario implements UserDetails {
-
-    private static final long serialVersionUID = 6189678452627071360L;
-
+    
     @Id
     @GeneratedValue
     private UUID id;

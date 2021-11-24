@@ -8,6 +8,7 @@ public class UsuarioDtoConverter {
 
     public GetUsuarioDto usuarioToGetUsuarioDto(Usuario u){
         return GetUsuarioDto.builder()
+                .id(u.getId())
                 .nombre(u.getNombre())
                 .avatar(u.getAvatar())
                 .email(u.getEmail())
@@ -18,6 +19,7 @@ public class UsuarioDtoConverter {
 
     public GetUsuarioPropietarioDto usuarioToGetUsuarioPropietarioDto(Usuario u){
         return GetUsuarioPropietarioDto.builder()
+                .id(u.getId())
                 .nombre(u.getNombre())
                 .apellidos(u.getApellidos())
                 .direccion(u.getDireccion())
