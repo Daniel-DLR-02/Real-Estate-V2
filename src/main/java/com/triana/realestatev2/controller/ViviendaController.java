@@ -74,4 +74,45 @@ public class ViviendaController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<GetViviendaDto> edit(@PathVariable Long id ,@RequestBody CreateViviendaDto viviendaEdit, @AuthenticationPrincipal Usuario user){
+
+        Optional<Vivienda> viviendaAEditar = viviendaService.findById(id);
+        if(user.getRole().equals(UsuarioRole.ADMIN) || viviendaAEditar.get().getPropietario().getId().equals(user.getId())) {
+            if (viviendaAEditar.isPresent()) {
+
+                viviendaAEditar.map(v -> {
+                    v.setTitulo(viviendaEdit.getTitulo());
+                    v.setDescripcion(viviendaEdit.getDescripcion());
+                    v.setAvatar(viviendaEdit.getAvatar());
+                    v.setLating(viviendaEdit.getLating());
+                    v.setDireccion(viviendaEdit.getDireccion());
+                    v.setCodigoPostal(viviendaEdit.getCodigoPostal());
+                    v.setPoblacion(viviendaEdit.getPoblacion());
+                    v.setProvincia(viviendaEdit.getProvincia());
+                    v.setTipo(viviendaEdit.getTipo());
+                    v.setPrecio(viviendaEdit.getPrecio());
+                    v.setNumHabitaciones(viviendaEdit.getNumHabitaciones());
+                    v.setMetrosCuadrados(viviendaEdit.getMetrosCuadrados());
+                    v.setNumBanios(viviendaEdit.getNumBanios());
+                    v.setTienePiscina(viviendaEdit.isTienePiscina());
+                    v.setTieneAscensor(viviendaEdit.isTieneAscensor());
+                    v.setTieneGaraje(viviendaEdit.isTieneGaraje());
+                    return v;
+                });
+                viviendaService.save(viviendaAEditar.get());
+
+                return ResponseEntity.ok(dtoConverter.viviendaToGetViviendaDto(viviendaAEditar.get()));
+
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+
+    }
+
 }
