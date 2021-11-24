@@ -70,7 +70,7 @@ public class Usuario implements UserDetails {
     private List<Interesa> interesa = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "propietario")
+    @OneToMany(mappedBy = "propietario",cascade = CascadeType.REMOVE)
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Override

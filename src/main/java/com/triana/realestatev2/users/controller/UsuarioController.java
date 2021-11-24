@@ -53,6 +53,7 @@ public class UsuarioController {
             return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioDto(saved));
     }
 
+
     @PostMapping("/auth/register/admin")
     public ResponseEntity<GetUsuarioDto> nuevoAdmin(@RequestBody CreateUsuarioDto nuevoUsuario){
         Usuario saved = usuarioService.saveAdmin(nuevoUsuario);
@@ -63,6 +64,7 @@ public class UsuarioController {
             return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioDto(saved));
     }
 
+
     @GetMapping("/propietario/{id}")
     public ResponseEntity<?> findProp(@PathVariable UUID id, @AuthenticationPrincipal Usuario userActual) {
 
@@ -72,7 +74,7 @@ public class UsuarioController {
             if (userActual.getId().equals(usuarioBuscado.get().getId()) || userActual.getRole().equals(UsuarioRole.ADMIN)) {
                 return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioPropietarioDto(usuarioBuscado.get()));
             } else {
-                return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<String>("Unauthorized", HttpStatus.FORBIDDEN);
             }
         }
         else{
@@ -81,9 +83,21 @@ public class UsuarioController {
     }
 
     @DeleteMapping("propietario/{id}")
-    public ResponseEntity<?> deletePropietario(@PathVariable UUID id) {
-        usuarioService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deletePropietario(@PathVariable UUID id, @AuthenticationPrincipal Usuario userActual) {
+
+        Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
+
+        if (usuarioBuscado.isPresent()){
+            if (userActual.getId().equals(usuarioBuscado.get().getId()) || userActual.getRole().equals(UsuarioRole.ADMIN)) {
+                usuarioService.deleteById(id);
+                return ResponseEntity.noContent().build();
+            } else {
+                return new ResponseEntity<String>("Unauthorized", HttpStatus.FORBIDDEN);
+            }
+        }
+        else{
+            return ResponseEntity.noContent().build();
+        }
     }
 
 }
