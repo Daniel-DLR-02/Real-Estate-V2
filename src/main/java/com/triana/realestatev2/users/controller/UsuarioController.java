@@ -69,7 +69,7 @@ public class UsuarioController {
         Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
 
         if (usuarioBuscado.isPresent()){
-            if (userActual.getId().equals(usuarioBuscado.get().getId()) || userActual.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            if (userActual.getId().equals(usuarioBuscado.get().getId()) || userActual.getRole().equals(UsuarioRole.ADMIN)) {
                 return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioPropietarioDto(usuarioBuscado.get()));
             } else {
                 return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
@@ -78,6 +78,12 @@ public class UsuarioController {
         else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("propietario/{id}")
+    public ResponseEntity<?> deletePropietario(@PathVariable UUID id) {
+        usuarioService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

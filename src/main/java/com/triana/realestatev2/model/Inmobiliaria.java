@@ -27,7 +27,7 @@ public class Inmobiliaria {
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany
+    @OneToMany(mappedBy = "inmobiliaria")
     private List<Usuario> gestores = new ArrayList<>();
 
     public Inmobiliaria(Long id , String nombre, String email, String telefono) {
