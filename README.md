@@ -2,7 +2,7 @@
 ___
 
 
-Este proyecto consiste en la creación de una API rest hecha en Java que tiene como finalidad la administración de inmuebles.Esta version contiene la implementación de Sprin Security.
+Este proyecto consiste en la creación de una API rest hecha en Java que tiene como finalidad la administración de inmuebles.Esta version contiene la implementación de Spring Security.
 
 ### Inicio
 
