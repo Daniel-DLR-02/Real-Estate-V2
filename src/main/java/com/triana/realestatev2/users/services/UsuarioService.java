@@ -95,8 +95,8 @@ public class UsuarioService extends BaseService<Usuario, UUID, UsuarioRepository
 
     }
 
-    public List<Usuario> loadUserByRol(UsuarioRole role) throws UsernameNotFoundException {
-        return this.repositorio.findByRole(role);
+    public List<Usuario> findProps() throws UsernameNotFoundException {
+        return this.repositorio.findByRole(UsuarioRole.PROPIETARIO);
     }
 
 

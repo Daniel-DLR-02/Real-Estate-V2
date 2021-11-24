@@ -65,12 +65,12 @@ public class Usuario implements UserDetails {
     private Inmobiliaria inmobiliaria;
 
 
-    @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     @Builder.Default
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<Interesa> interesa = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "propietario")
+    @OneToMany(mappedBy = "propietario",cascade = CascadeType.REMOVE)
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Override

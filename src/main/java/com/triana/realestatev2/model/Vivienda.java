@@ -97,6 +97,7 @@ public class Vivienda {
         }
     }
 
+    @PreRemove
     public void removeInmobiliaria() {
         if (this.inmobiliaria != null)
             this.inmobiliaria.getViviendas().remove(this);
@@ -114,6 +115,7 @@ public class Vivienda {
         }
 
     }
+
 
     public void removePropietario() {
         if (this.propietario != null)
