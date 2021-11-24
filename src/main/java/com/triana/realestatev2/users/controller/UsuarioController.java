@@ -1,21 +1,24 @@
 package com.triana.realestatev2.users.controller;
 
-import com.triana.realestatev2.users.dto.CreateUsuarioDto;
-import com.triana.realestatev2.users.dto.CreateUsuarioGestorDto;
-import com.triana.realestatev2.users.dto.GetUsuarioDto;
-import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
+import com.triana.realestatev2.users.dto.*;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
 import com.triana.realestatev2.users.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static com.triana.realestatev2.users.model.UsuarioRole.PROPIETARIO;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,6 +61,23 @@ public class UsuarioController {
             return ResponseEntity.badRequest().build();
         else
             return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioDto(saved));
+    }
+
+    @GetMapping("/propietario/{id}")
+    public ResponseEntity<?> findProp(@PathVariable UUID id, @AuthenticationPrincipal Usuario userActual) {
+
+        Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
+
+        if (usuarioBuscado.isPresent()){
+            if (userActual.getId().equals(usuarioBuscado.get().getId()) || userActual.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+                return ResponseEntity.ok(usuarioDtoConverter.usuarioToGetUsuarioPropietarioDto(usuarioBuscado.get()));
+            } else {
+                return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+            }
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

@@ -46,6 +46,9 @@ public class AuthenticationController {
 
     }
 
+    public JwtUsuarioResponse getSesionActual(Usuario usuario){
+        return convertUserToJwtUserResponse(usuario, null);
+    }
 
     private JwtUsuarioResponse convertUserToJwtUserResponse(Usuario user, String jwt) {
         return JwtUsuarioResponse.builder()

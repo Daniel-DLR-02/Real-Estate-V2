@@ -4,7 +4,10 @@ import com.triana.realestatev2.model.Inmobiliaria;
 import com.triana.realestatev2.model.Interesa;
 import com.triana.realestatev2.model.Vivienda;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.Parameter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,17 +20,26 @@ import java.util.UUID;
 
 @Entity
 @Table(name="usuario")
-@Getter @Setter
-@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-//Preguntar mañana por el AuditingEntityListener.class
 public class Usuario implements UserDetails {
 
-    private static final long serialVersionUID = 6189678452627071360L;
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = {
+                    @Parameter(
+                            name = "uuid_gen_strategy_class",
+                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                    )
+            }
+    )
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     private String nombre;

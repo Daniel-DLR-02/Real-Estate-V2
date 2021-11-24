@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Log
 @Component
@@ -26,6 +27,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final UsuarioService userService;
     private final JwtProvider jwtProvider;
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -34,12 +36,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         try {
             if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
 
-                Long userId = jwtProvider.getUserIdFromJwt(token);
+                UUID userId = jwtProvider.getUserIdFromJwt(token);
 
-                Optional<Usuario> userEntity = userService.findById(userId);
+                Optional<Usuario> usuario = userService.findById(userId);
 
-                if (userEntity.isPresent()) {
-                    Usuario user = userEntity.get();
+                if (usuario.isPresent()) {
+                    Usuario user = usuario.get();
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
                                     user,
