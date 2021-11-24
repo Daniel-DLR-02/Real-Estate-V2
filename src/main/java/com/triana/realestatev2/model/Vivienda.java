@@ -85,7 +85,7 @@ public class Vivienda {
         this.tieneGaraje = tieneGaraje;
     }
 
-    //TODO :Hacer helpers
+
 
     public void addInmobiliaria(Inmobiliaria inmo) {
         inmobiliaria = inmo;
@@ -97,11 +97,12 @@ public class Vivienda {
         }
     }
 
-    @PreRemove
+
     public void removeInmobiliaria() {
         if (this.inmobiliaria != null)
             this.inmobiliaria.getViviendas().remove(this);
-        inmobiliaria = null;
+        this.setInmobiliaria(null);
+
     }
 
     public void addPropietario(Usuario u) {
@@ -120,7 +121,7 @@ public class Vivienda {
     public void removePropietario() {
         if (this.propietario != null)
             this.propietario.getViviendas().remove(this);
-        this.propietario = null;
+        this.setPropietario(null);
     }
 
 
