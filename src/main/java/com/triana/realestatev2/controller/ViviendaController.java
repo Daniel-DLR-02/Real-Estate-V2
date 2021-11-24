@@ -4,7 +4,9 @@ import com.triana.realestatev2.dto.ViviendaDto.CreateViviendaDto;
 import com.triana.realestatev2.dto.ViviendaDto.GetViviendaDto;
 import com.triana.realestatev2.dto.ViviendaDto.GetViviendaPropietarioDto;
 import com.triana.realestatev2.dto.ViviendaDto.ViviendaDtoConverter;
+import com.triana.realestatev2.model.Inmobiliaria;
 import com.triana.realestatev2.model.Vivienda;
+import com.triana.realestatev2.service.InmobiliariaService;
 import com.triana.realestatev2.service.ViviendaService;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
@@ -26,6 +28,7 @@ public class ViviendaController {
 
     private final ViviendaService viviendaService;
     private final UsuarioService usuarioService;
+    private final InmobiliariaService inmobiliariaService;
     private final ViviendaDtoConverter dtoConverter;
 
     @PostMapping("/")
@@ -131,6 +134,29 @@ public class ViviendaController {
         }else{
             return ResponseEntity.noContent().build();
         }
+    }
+
+    @PostMapping("/{idViv}/inmobiliaria/{idInmo}")
+    public ResponseEntity<GetViviendaDto> gestionarVivienda(@PathVariable Long idViv,@PathVariable Long idInmo, @AuthenticationPrincipal Usuario user){
+
+        Optional<Vivienda> viv = viviendaService.findById(idViv);
+        Optional<Inmobiliaria> inmo = inmobiliariaService.findById(idInmo);
+        if(viv.isPresent() && inmo.isPresent()) {
+            if (user.getRole().equals(UsuarioRole.ADMIN) || viv.get().getPropietario().getId().equals(user.getId())){
+                viv.get().addInmobiliaria(inmo.get());
+                viviendaService.save(viv.get());
+                return ResponseEntity.ok(dtoConverter.viviendaToGetViviendaDto(viv.get()));
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+
+
     }
 
 }
