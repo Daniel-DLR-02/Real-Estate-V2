@@ -74,7 +74,7 @@ public class Usuario implements UserDetails {
 
     @Builder.Default
     @JsonIgnore
-    @OneToMany(mappedBy = "propietario",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "propietario", cascade = CascadeType.ALL)
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Override
