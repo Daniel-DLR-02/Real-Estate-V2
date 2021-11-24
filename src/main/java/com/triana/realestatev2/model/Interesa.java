@@ -23,7 +23,7 @@ public class Interesa {
 
     @ManyToOne
     @MapsId("interesado_id")
-    @JoinColumn(name="interesad_id")
+    @JoinColumn(name="interesado_id")
     private Usuario interesado;
 
     private LocalDate createdDate;
