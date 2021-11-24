@@ -115,4 +115,22 @@ public class ViviendaController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal Usuario user){
+        Optional<Vivienda> viviendaDelete = viviendaService.findById(id);
+        if(viviendaDelete.isPresent()) {
+            if(viviendaDelete.get().getPropietario().getId().equals(user.getId()) || user.getRole().equals(UsuarioRole.ADMIN)) {
+                viviendaDelete.get().removeInmobiliaria();
+                viviendaDelete.get().removePropietario();
+                viviendaService.delete(viviendaDelete.get());
+                return ResponseEntity.noContent().build();
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+        }else{
+            return ResponseEntity.noContent().build();
+        }
+    }
+
 }
