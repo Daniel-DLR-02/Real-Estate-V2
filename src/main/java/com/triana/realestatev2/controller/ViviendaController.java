@@ -122,18 +122,13 @@ public class ViviendaController {
     public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal Usuario user){
         Optional<Vivienda> viviendaDelete = viviendaService.findById(id);
         if(viviendaDelete.isPresent()) {
-            if(viviendaDelete.get().getPropietario().getId().equals(user.getId()) || user.getRole().equals(UsuarioRole.ADMIN)) {
+            if (viviendaDelete.get().getPropietario().getId().equals(user.getId()) || user.getRole().equals(UsuarioRole.ADMIN)) {
                 viviendaDelete.get().removeInmobiliaria();
                 viviendaDelete.get().removePropietario();
                 viviendaService.delete(viviendaDelete.get());
-                return ResponseEntity.noContent().build();
             }
-            else{
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-            }
-        }else{
-            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{idViv}/inmobiliaria/{idInmo}")
@@ -159,4 +154,20 @@ public class ViviendaController {
 
     }
 
+    @DeleteMapping("/{idViv}/inmobiliaria/")
+    public ResponseEntity<?> deshacerGestionVivienda(@PathVariable Long idViv, @AuthenticationPrincipal Usuario user) {
+
+        Optional<Vivienda> viv = viviendaService.findById(idViv);
+        if(viv.isPresent()) {
+            if (user.getRole().equals(UsuarioRole.ADMIN) || viv.get().getPropietario().getId().equals(user.getId())){
+                viv.get().removeInmobiliaria();
+                viviendaService.save(viv.get());
+                return ResponseEntity.noContent().build();
+
+            }
+        }
+
+        return ResponseEntity.noContent().build();
+
+    }
 }
