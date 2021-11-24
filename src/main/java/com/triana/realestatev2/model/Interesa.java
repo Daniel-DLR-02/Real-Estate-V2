@@ -22,9 +22,9 @@ public class Interesa {
     private Vivienda vivienda;
 
     @ManyToOne
-    @MapsId("usuario_id")
-    @JoinColumn(name="usuario_id")
-    private Usuario usuario;
+    @MapsId("interesado_id")
+    @JoinColumn(name="interesad_id")
+    private Usuario interesado;
 
     private LocalDate createdDate;
 

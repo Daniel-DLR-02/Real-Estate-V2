@@ -1,5 +1,6 @@
 package com.triana.realestatev2.users.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.triana.realestatev2.model.Inmobiliaria;
 import com.triana.realestatev2.model.Interesa;
 import com.triana.realestatev2.model.Vivienda;
@@ -62,15 +63,18 @@ public class Usuario implements UserDetails {
     private UsuarioRole role;
 
     @ManyToOne
+    @JoinColumn(name = "inmobiliaria_id", foreignKey = @ForeignKey(name = "FK_USER_INMOBILIARIA"), nullable = true)
     private Inmobiliaria inmobiliaria;
 
 
     @Builder.Default
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "interesado")
     private List<Interesa> interesa = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "propietario",cascade = CascadeType.REMOVE)
+    @Builder.Default
+    @JsonIgnore
+    @OneToMany(mappedBy = "propietario",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Override

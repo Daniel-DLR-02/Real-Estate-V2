@@ -52,15 +52,15 @@ public class Vivienda {
     private boolean tieneGaraje;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id_propietario")
+    @JoinColumn(name = "id_propietario", foreignKey = @ForeignKey(name = "FK_VIVIENDA_USUARIO"))
     private Usuario propietario;
 
     @ManyToOne
-    @JoinColumn(name = "id_inmobiliaria")
+    @JoinColumn(name = "id_inmobiliaria",nullable = true, foreignKey = @ForeignKey(name = "FK_INMOBILIARIA_USUARIO"))
     private Inmobiliaria inmobiliaria;
 
     @Builder.Default
-    @OneToMany(mappedBy = "vivienda", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "vivienda")
     private List<Interesa> interesa = new ArrayList<>();
 
     public Vivienda(String titulo, String descripcion, String avatar, String lating, String direccion,
