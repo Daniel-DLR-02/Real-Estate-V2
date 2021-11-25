@@ -1,27 +1,22 @@
 package com.triana.realestatev2.controller;
 
-import com.triana.realestatev2.dto.InmobiliariaDto.CreateInmobiliariaDto;
-import com.triana.realestatev2.dto.InmobiliariaDto.GetInmobiliariaDto;
-import com.triana.realestatev2.dto.InmobiliariaDto.InmobiliariaDtoConverter;
+import com.triana.realestatev2.dto.InmobiliariaDto.*;
 import com.triana.realestatev2.model.Inmobiliaria;
 import com.triana.realestatev2.service.InmobiliariaService;
-import com.triana.realestatev2.service.ViviendaService;
 import com.triana.realestatev2.users.dto.GetUsuarioDto;
 import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
 import com.triana.realestatev2.users.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @RestController
@@ -34,6 +29,7 @@ public class InmobiliariaController {
     private final InmobiliariaDtoConverter dtoConverter;
     private final UsuarioDtoConverter userDtoConverter;
     private final UsuarioService usuarioService;
+    private final GestorConverter gestorConverter;
 
 
     @PostMapping("/")
@@ -77,5 +73,25 @@ public class InmobiliariaController {
         else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{id}/gestor")
+    public ResponseEntity<GetUsuarioDto> registeGestor(@PathVariable Long id, @RequestBody CreateGestorEnInmoDto gestorCrear, @AuthenticationPrincipal Usuario user){
+        Optional<Inmobiliaria> inmobiliariaBuscada = inmobiliariaService.findById(id);
+
+        if(inmobiliariaBuscada.isPresent()){
+            if(user.getRole().equals(UsuarioRole.ADMIN) || inmobiliariaService.comprobarGestorPerteneceInmobiliaria(user,inmobiliariaBuscada.get())){
+                Usuario usuarioCreado=gestorConverter.createGestorEnInmoDtoToGestor(gestorCrear,inmobiliariaBuscada.get());
+                usuarioService.save(usuarioCreado);
+                return ResponseEntity.status(CREATED).body(userDtoConverter.usuarioToGetUsuarioDto(usuarioCreado));
+            }else{
+                return ResponseEntity.status(FORBIDDEN).build();
+            }
+        }
+        else{
+            return ResponseEntity.notFound().build();
+
+        }
+
     }
 }
