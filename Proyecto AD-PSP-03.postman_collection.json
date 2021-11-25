@@ -1,0 +1,1122 @@
+{
+	"info": {
+		"_postman_id": "fc4ff826-8cbb-420a-9569-5b45bbfc579a",
+		"name": "Proyecto AD-PSP-03",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login PROPIETARIO",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"asdfdsdsg@gmail.com\",\r\n    \"password\":\"holahola\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login ADMIN",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"deluna.rodan21@gmail.com\",\r\n    \"password\":\"qwerty\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login GESTOR",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"gestorusertestg@gmail.com\",\r\n    \"password\":\"testgestor\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Propietario (Con vivienda)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"propVivienda@gmail.com\",\r\n    \"password\":\"asdfg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login gestor (Con inmobiliaria)(Terminar)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.collectionVariables.set(\"token\", jsonData.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"propVivienda@gmail.com\",\r\n    \"password\":\"asdfg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"item": [
+						{
+							"name": "Register PROPIETARIO",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"user1\",\r\n    \"apellidos\":\"user12\",\r\n    \"direccion\":\"Calle conde del bustillo.\",\r\n    \"email\":\"asdfdsdsg@gmail.com\",\r\n    \"telefono\":\"123456789\",\r\n    \"avatar\":\"sdadasdada\",\r\n    \"password\":\"holahola\",\r\n    \"password2\":\"holahola\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/register/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"register",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register ADMIN",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjM3NzkyNTY4LCJlbWFpbCI6ImRlbHVuYS5yb2RhbjIxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiJ9.SeuaiU5QnF_kyu5K8zuvRVq1RJaNYgAIaQtxG_GANos",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"user2\",\r\n    \"apellidos\":\"user3232\",\r\n    \"direccion\":\"Calle conde del bustillo.\",\r\n    \"email\":\"admin2@gmail.com\",\r\n    \"telefono\":\"324567213\",\r\n    \"avatar\":\"sdadasdada.png\",\r\n    \"password\":\"hello\",\r\n    \"password2\":\"hello\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/register/admin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"register",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register GESTOR",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"userGestor\",\r\n    \"apellidos\": \"user12345\",\r\n    \"direccion\": \"Calle conde del bustillo.\",\r\n    \"email\": \"gestorusertestg@gmail.com\",\r\n    \"telefono\": \"098765432\",\r\n    \"avatar\": \"sdadasdada.jpg\",\r\n    \"password\": \"testgestor\",\r\n    \"password2\": \"testgestor\",\r\n    \"idInmobiliaria\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/register/gestor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"register",
+										"gestor"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Propietario",
+			"item": [
+				{
+					"name": "Listar Propietarios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/propietario/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"propietario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar propietario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/propietario/c0a83801-7d53-1c92-817d-53ccb8d80002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"propietario",
+								"c0a83801-7d53-1c92-817d-53ccb8d80002"
+							],
+							"query": [
+								{
+									"key": "{{id}}",
+									"value": "34d8af7a-c619-4b43-a29f-03b1ed205cbf",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar propietario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/propietario/c0a83801-7d53-19eb-817d-5319ef9e0001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"propietario",
+								"c0a83801-7d53-19eb-817d-5319ef9e0001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vivienda",
+			"item": [
+				{
+					"name": "Listar Viviendas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\":\"Casa\",\r\n    \"descripcion\":\"Casa de prueba\",\r\n    \"avatar\":\"avatar.jpeg\",\r\n    \"lating\":\"43.434,32.324\",\r\n    \"direccion\":\"Calle Acangel San Miguel\",\r\n    \"codigoPostal\":\"41010\",\r\n    \"poblacion\":\"Sevilla\",\r\n    \"provincia\":\"Sevilla\",\r\n    \"tipo\":\"Venta\",\r\n    \"precio\":500000,\r\n    \"numHabitaciones\":5,\r\n    \"metrosCuadrados\":100,\r\n    \"numBanios\":2,\r\n    \"tienePiscina\":false,\r\n    \"tieneAscensor\":true,\r\n    \"tieneGaraje\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vivienda/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Añadir Inmobiliaria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/11/inmobiliaria/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"11",
+								"inmobiliaria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\":\"Casa\",\r\n    \"descripcion\":\"Casa de prueba\",\r\n    \"avatar\":\"avatar.jpeg\",\r\n    \"lating\":\"43.434,32.324\",\r\n    \"direccion\":\"Calle Acangel San Miguel\",\r\n    \"codigoPostal\":\"41010\",\r\n    \"poblacion\":\"Sevilla\",\r\n    \"provincia\":\"Sevilla\",\r\n    \"tipo\":\"Venta\",\r\n    \"precio\":500000,\r\n    \"numHabitaciones\":5,\r\n    \"metrosCuadrados\":100,\r\n    \"numBanios\":2,\r\n    \"tienePiscina\":false,\r\n    \"tieneAscensor\":true,\r\n    \"tieneGaraje\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vivienda/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deshacer asociación con inmobiliraria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/1/inmobiliaria/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"1",
+								"inmobiliaria",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inmobiliaria",
+			"item": [
+				{
+					"name": "Listar inmobiliarias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar gestores de una inmobiliaria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/1/gestor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								"1",
+								"gestor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar detalles inmobiliaria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear inmobiliaria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"inmo1\",\r\n    \"email\":\"inmo1@inmobiliaria.mail.com\",\r\n    \"telefono\":\"987875634\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Gestor de Vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"userGestor\",\r\n    \"apellidos\": \"user98765\",\r\n    \"direccion\": \"Calle conde del bustillo.\",\r\n    \"email\": \"gestorusertest2g@gmail.com\",\r\n    \"telefono\": \"098765432\",\r\n    \"avatar\": \"sdadasdada.jpg\",\r\n    \"password\": \"testgestor\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/1/gestor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								"1",
+								"gestor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar gestor de la vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/gestor/c0a83801-7d58-1006-817d-5840fc370004",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								"gestor",
+								"c0a83801-7d58-1006-817d-5840fc370004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar inmobiliaria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inmobiliaria/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inmobiliaria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Interesa",
+			"item": [
+				{
+					"name": "Listar interesados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/interesado/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"interesado",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar detalles de un interesado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/interesado/c0a83801-7d58-17c5-817d-58e7e5240002",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"interesado",
+								"c0a83801-7d58-17c5-817d-58e7e5240002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nuevo interesa con usuario logueado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mensaje\":\"Me gusta esta casa.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vivienda/11/meinteresa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"11",
+								"meinteresa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar interes vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/11/meinteresa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"11",
+								"meinteresa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar viviendas con mas interesa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vivienda/top10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								"top10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
