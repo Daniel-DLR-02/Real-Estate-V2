@@ -1,15 +1,25 @@
 package com.triana.realestatev2.service;
 
 
+import com.triana.realestatev2.dto.InmobiliariaDto.GetInmobiliariaDto;
+import com.triana.realestatev2.dto.InmobiliariaDto.InmobiliariaDtoConverter;
 import com.triana.realestatev2.model.Inmobiliaria;
 import com.triana.realestatev2.repository.InmobiliariaRepository;
 import com.triana.realestatev2.service.base.BaseService;
 import com.triana.realestatev2.users.model.Usuario;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 public class InmobiliariaService
         extends BaseService<Inmobiliaria,Long, InmobiliariaRepository> {
+
+    private final InmobiliariaDtoConverter dtoConverter;
+
 
     public boolean comprobarGestorPerteneceInmobiliaria(Usuario gest, Inmobiliaria inmo){
 
@@ -21,6 +31,17 @@ public class InmobiliariaService
         }
 
         return pertenece;
+    }
+
+    public List<GetInmobiliariaDto> listaInmoToListaGetInmoDto(List<Inmobiliaria> inmo){
+
+        List<GetInmobiliariaDto> listaGetInmoDto = new ArrayList<>();
+
+        inmo.stream().forEach(i -> {
+            listaGetInmoDto.add(dtoConverter.inmobiliariaToGetInmobiliariaDto(i));
+        });
+
+        return listaGetInmoDto;
     }
 
 }

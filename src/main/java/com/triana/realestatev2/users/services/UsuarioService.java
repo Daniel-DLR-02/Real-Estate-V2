@@ -5,10 +5,7 @@ import com.triana.realestatev2.security.jwt.JwtAuthorizationFilter;
 import com.triana.realestatev2.security.jwt.JwtProvider;
 import com.triana.realestatev2.service.InmobiliariaService;
 import com.triana.realestatev2.service.base.BaseService;
-import com.triana.realestatev2.users.dto.CreateUsuarioDto;
-import com.triana.realestatev2.users.dto.CreateUsuarioGestorDto;
-import com.triana.realestatev2.users.dto.GetUsuarioPropietarioDto;
-import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
+import com.triana.realestatev2.users.dto.*;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
 import com.triana.realestatev2.users.repos.UsuarioRepository;
@@ -23,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -120,6 +118,13 @@ public class UsuarioService extends BaseService<Usuario, UUID, UsuarioRepository
 
     }
 
+    public List<GetUsuarioDto> listaUsuarioToListGetUsuarioDto(List<Usuario> users){
+        List<GetUsuarioDto> getUsuariosDto = new ArrayList<>();
+        users.stream().forEach(g -> {
+            getUsuariosDto.add(usuarioDtoConverter.usuarioToGetUsuarioDto(g));
+        });
+        return getUsuariosDto;
+    }
 
 
 

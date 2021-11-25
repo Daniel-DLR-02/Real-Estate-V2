@@ -10,6 +10,7 @@ import com.triana.realestatev2.users.dto.GetUsuarioDto;
 import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
+import com.triana.realestatev2.users.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class InmobiliariaController {
     private final InmobiliariaService inmobiliariaService;
     private final InmobiliariaDtoConverter dtoConverter;
     private final UsuarioDtoConverter userDtoConverter;
+    private final UsuarioService usuarioService;
 
 
     @PostMapping("/")
@@ -50,11 +52,7 @@ public class InmobiliariaController {
     @GetMapping("/")
     public ResponseEntity<List<GetInmobiliariaDto>> findAll(){
 
-        List<GetInmobiliariaDto> listaInmo = new ArrayList<>();
-
-        inmobiliariaService.findAll().stream().forEach(i ->{
-            listaInmo.add(dtoConverter.inmobiliariaToGetInmobiliariaDto(i));
-        });
+        List<GetInmobiliariaDto> listaInmo = inmobiliariaService.listaInmoToListaGetInmoDto(inmobiliariaService.findAll());
 
         return ResponseEntity.ok(listaInmo);
     }
@@ -67,11 +65,7 @@ public class InmobiliariaController {
         if(inmobiliariaBuscada.isPresent()) {
             if (inmobiliariaService.comprobarGestorPerteneceInmobiliaria(user, inmobiliariaBuscada.get()) || user.getRole().equals(UsuarioRole.ADMIN)) {
 
-                List<GetUsuarioDto> listaGestores = new ArrayList<>();
-
-                inmobiliariaBuscada.get().getGestores().stream().forEach(g -> {
-                    listaGestores.add(userDtoConverter.usuarioToGetUsuarioDto(g));
-                });
+                List<GetUsuarioDto> listaGestores = usuarioService.listaUsuarioToListGetUsuarioDto(inmobiliariaBuscada.get().getGestores());
 
                 return ResponseEntity.ok(listaGestores);
 
