@@ -125,4 +125,13 @@ public class InmobiliariaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("inmobiliaria/{id}")
+    public ResponseEntity<GetInmobiliariaDto> findOne(@PathVariable Long id, @AuthenticationPrincipal Usuario user){
+        Optional<Inmobiliaria> inmo = inmobiliariaService.findById(id);
+        if(inmo.isPresent())
+            return ResponseEntity.ok(dtoConverter.inmobiliariaToGetInmobiliariaDto(inmo.get()));
+        else
+            return ResponseEntity.notFound().build();
+    }
+
 }
