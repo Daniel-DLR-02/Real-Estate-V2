@@ -3,6 +3,7 @@ package com.triana.realestatev2.controller;
 import com.triana.realestatev2.dto.InteresaDto.CreateInteresaDto;
 import com.triana.realestatev2.dto.InteresaDto.GetInteresaDto;
 import com.triana.realestatev2.dto.InteresaDto.InteresaDtoConverter;
+import com.triana.realestatev2.dto.ViviendaDto.GetViviendaDto;
 import com.triana.realestatev2.model.Interesa;
 import com.triana.realestatev2.model.Vivienda;
 import com.triana.realestatev2.service.InteresaService;
@@ -86,7 +87,7 @@ public class InteresaController {
     }
 
     @GetMapping("/interesado/{id}")
-    public ResponseEntity<GetUsuarioDto> finOne(@PathVariable UUID id, @AuthenticationPrincipal Usuario user){
+    public ResponseEntity<GetUsuarioDto> findOne(@PathVariable UUID id, @AuthenticationPrincipal Usuario user){
 
         Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
 
@@ -101,5 +102,11 @@ public class InteresaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/vivienda/top10")
+    public ResponseEntity<List<GetViviendaDto>> viviendasConMasInteresas(){
+        return ResponseEntity.ok(interesaService.topViviendaDto());
+    }
+
 
 }
