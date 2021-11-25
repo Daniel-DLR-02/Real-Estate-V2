@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -92,6 +93,22 @@ public class InmobiliariaController {
             return ResponseEntity.notFound().build();
 
         }
+
+    }
+
+    @DeleteMapping("/gestor/{id}")
+    public ResponseEntity<?> removeGestor(@PathVariable UUID id, @AuthenticationPrincipal Usuario userLogged){
+
+        Optional<Usuario> gestor = usuarioService.findById(id);
+        Inmobiliaria inmo = userLogged.getInmobiliaria();
+
+        if(gestor.isPresent()){
+            if(userLogged.getRole().equals(UsuarioRole.ADMIN) || inmobiliariaService.comprobarGestorPerteneceInmobiliaria(gestor.get(),inmo)){
+                usuarioService.deleteById(id);
+            }
+        }
+
+        return ResponseEntity.noContent().build();
 
     }
 }
