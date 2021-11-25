@@ -7,6 +7,7 @@ import com.triana.realestatev2.model.Interesa;
 import com.triana.realestatev2.model.Vivienda;
 import com.triana.realestatev2.service.InteresaService;
 import com.triana.realestatev2.service.ViviendaService;
+import com.triana.realestatev2.users.dto.GetUsuarioDto;
 import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
@@ -73,6 +74,14 @@ public class InteresaController {
         }
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/interesado/")
+    public ResponseEntity<List<GetUsuarioDto>> getInteresados(){
+
+        List<Usuario> interesados = usuarioService.findProps();
+
+        return ResponseEntity.ok().body(usuarioService.listaUsuarioToListGetUsuarioDto(interesados));
     }
 
 }
