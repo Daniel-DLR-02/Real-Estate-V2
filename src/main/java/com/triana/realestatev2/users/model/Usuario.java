@@ -69,7 +69,7 @@ public class Usuario implements UserDetails {
 
     @Builder.Default
     @JsonIgnore
-    @OneToMany(mappedBy = "interesado")
+    @OneToMany(mappedBy = "interesado",fetch = FetchType.EAGER)
     private List<Interesa> interesa = new ArrayList<>();
 
     @Builder.Default

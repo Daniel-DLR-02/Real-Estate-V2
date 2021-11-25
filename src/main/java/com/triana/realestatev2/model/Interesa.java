@@ -32,6 +32,13 @@ public class Interesa {
     private String mensaje;
 
 
+    public void addInteresado(Usuario newInteresado) {
+        this.interesado=newInteresado;
+        newInteresado.getInteresa().add(this);
+    }
 
-
+    public void addVivienda(Vivienda newVivienda) {
+        this.vivienda=newVivienda;
+        newVivienda.getInteresa().add(this);
+    }
 }
