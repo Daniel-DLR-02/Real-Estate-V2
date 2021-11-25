@@ -15,6 +15,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,5 +39,17 @@ public class InmobiliariaController {
         else{
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<GetInmobiliariaDto>> findAll(){
+
+        List<GetInmobiliariaDto> listaInmo = new ArrayList<>();
+
+        inmobiliariaService.findAll().stream().forEach(i ->{
+            listaInmo.add(dtoConverter.inmobiliariaToGetInmobiliariaDto(i));
+        });
+
+        return ResponseEntity.ok(listaInmo);
     }
 }
