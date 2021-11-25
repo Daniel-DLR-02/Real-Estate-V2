@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -53,6 +54,25 @@ public class InteresaController {
         else{
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @DeleteMapping("vivienda/{id}/meinteresa")
+    public ResponseEntity<?> deleteInteresa(@PathVariable Long id,@AuthenticationPrincipal Usuario user){
+
+        Optional<Vivienda> viviendaBuscada = viviendaService.findById(id);
+
+        if(viviendaBuscada.isPresent()){
+
+            List<Interesa> listaIntereses = viviendaBuscada.get().getInteresa();
+            for (Interesa inte : listaIntereses) {
+                if (inte.getInteresado().getId().equals(user.getId())) {
+                    interesaService.delete(inte);
+                }
+            }
+
+        }
+
+        return ResponseEntity.noContent().build();
     }
 
 }
