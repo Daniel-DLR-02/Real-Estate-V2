@@ -36,8 +36,8 @@ public class Inmobiliaria {
         this.email = email;
         this.telefono = telefono;
     }
-    @PreRemove
-    private void removeInmoFromViviendas() {
+
+    public void removeInmoFromViviendas() {
         viviendas.forEach(v ->
                 v.setInmobiliaria(null));
     }

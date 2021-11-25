@@ -111,4 +111,18 @@ public class InmobiliariaController {
         return ResponseEntity.noContent().build();
 
     }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> removeInmo(@PathVariable Long id, @AuthenticationPrincipal Usuario userLogged){
+        Optional<Inmobiliaria> inmo = inmobiliariaService.findById(id);
+        if(inmo.isPresent()){
+            if(userLogged.getRole().equals(UsuarioRole.ADMIN)) {
+                inmo.get().removeInmoFromViviendas();
+                inmobiliariaService.deleteById(id);
+            }
+        }
+        return ResponseEntity.noContent().build();
+    }
+
 }
