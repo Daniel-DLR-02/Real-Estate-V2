@@ -7,6 +7,7 @@ import com.triana.realestatev2.model.Interesa;
 import com.triana.realestatev2.model.Vivienda;
 import com.triana.realestatev2.service.InteresaService;
 import com.triana.realestatev2.service.ViviendaService;
+import com.triana.realestatev2.users.dto.GetUsuarioDto;
 import com.triana.realestatev2.users.dto.UsuarioDtoConverter;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -73,6 +75,31 @@ public class InteresaController {
         }
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/interesado/")
+    public ResponseEntity<List<GetUsuarioDto>> getInteresados(){
+
+        List<Usuario> interesados = usuarioService.findProps();
+
+        return ResponseEntity.ok().body(usuarioService.listaUsuarioToListGetUsuarioDto(interesados));
+    }
+
+    @GetMapping("/interesado/{id}")
+    public ResponseEntity<GetUsuarioDto> finOne(@PathVariable UUID id, @AuthenticationPrincipal Usuario user){
+
+        Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
+
+        if(usuarioBuscado.isPresent()){
+            if(user.getId().equals(usuarioBuscado.get().getId()) || user.getRole().equals(UsuarioRole.ADMIN)){
+                return ResponseEntity.ok(userDtoConverter.usuarioToGetUsuarioDto(usuarioBuscado.get()));
+            }
+            else
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
