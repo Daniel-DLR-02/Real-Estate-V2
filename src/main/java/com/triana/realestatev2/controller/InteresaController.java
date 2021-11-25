@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -82,6 +83,23 @@ public class InteresaController {
         List<Usuario> interesados = usuarioService.findProps();
 
         return ResponseEntity.ok().body(usuarioService.listaUsuarioToListGetUsuarioDto(interesados));
+    }
+
+    @GetMapping("/interesado/{id}")
+    public ResponseEntity<GetUsuarioDto> finOne(@PathVariable UUID id, @AuthenticationPrincipal Usuario user){
+
+        Optional<Usuario> usuarioBuscado = usuarioService.findById(id);
+
+        if(usuarioBuscado.isPresent()){
+            if(user.getId().equals(usuarioBuscado.get().getId()) || user.getRole().equals(UsuarioRole.ADMIN)){
+                return ResponseEntity.ok(userDtoConverter.usuarioToGetUsuarioDto(usuarioBuscado.get()));
+            }
+            else
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
