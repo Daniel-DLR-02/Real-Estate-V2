@@ -73,8 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/vivienda/{id}/meinteresa").hasRole("PROPIETARIO")
                 .antMatchers(HttpMethod.GET,"/interesado/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/interesado/{id}").hasAnyRole("PROPIETARIO","ADMIN")
-
-
+                .antMatchers(HttpMethod.GET,"/vivienda/top10").authenticated()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
