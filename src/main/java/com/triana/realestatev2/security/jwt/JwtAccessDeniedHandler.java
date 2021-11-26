@@ -22,7 +22,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        response.setStatus(HttpStatus.FORBIDDEN.value());//Preguntar mañana por esta línea de código.
+        response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType("application/json");
 
         Map<String, String> mensajes =

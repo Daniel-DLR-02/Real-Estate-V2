@@ -36,6 +36,7 @@ public class AuthenticationController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+
         String jwt = jwtProvider.generateToken(authentication);
 
 
@@ -46,17 +47,13 @@ public class AuthenticationController {
 
     }
 
-    public JwtUsuarioResponse getSesionActual(Usuario usuario){
-        return convertUserToJwtUserResponse(usuario, null);
-    }
-
     private JwtUsuarioResponse convertUserToJwtUserResponse(Usuario user, String jwt) {
         return JwtUsuarioResponse.builder()
                 .nombre(user.getNombre())
                 .apellidos(user.getApellidos())
                 .email(user.getEmail())
-                .avatar(user.getAvatar())
                 .role(user.getRole().name())
+                .avatar(user.getAvatar())
                 .token(jwt)
                 .build();
     }
