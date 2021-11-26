@@ -29,4 +29,31 @@ public class UsuarioDtoConverter {
                 .build();
     }
 
+    public CreateUsuarioGestorDto usuarioToCreateGestorDto(Usuario user ){
+        return CreateUsuarioGestorDto.builder()
+                .nombre(user.getNombre())
+                .apellidos(user.getApellidos())
+                .direccion(user.getDireccion())
+                .email(user.getEmail())
+                .telefono(user.getTelefono())
+                .avatar(user.getAvatar())
+                .password(user.getPassword())
+                .password2(user.getPassword())
+                .idInmobiliaria(user.getInmobiliaria().getId())
+                .build();
+    }
+
+    public CreateUsuarioDto usuarioToCreateUsuario(Usuario user){
+        return CreateUsuarioDto.builder()
+                .nombre(user.getNombre())
+                .apellidos(user.getApellidos())
+                .direccion(user.getDireccion())
+                .email(user.getEmail())
+                .telefono(user.getTelefono())
+                .avatar(user.getAvatar())
+                .password(user.getPassword())
+                .password2(user.getPassword())
+                .build();
+    }
+
 }
