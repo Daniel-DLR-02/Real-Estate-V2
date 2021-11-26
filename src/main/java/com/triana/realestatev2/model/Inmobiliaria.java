@@ -30,8 +30,7 @@ public class Inmobiliaria {
     @OneToMany(mappedBy = "inmobiliaria", fetch = FetchType.EAGER)
     private List<Usuario> gestores = new ArrayList<>();
 
-    public Inmobiliaria(Long id , String nombre, String email, String telefono) {
-        this.id=id;
+    public Inmobiliaria(String nombre, String email, String telefono) {
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
@@ -41,6 +40,17 @@ public class Inmobiliaria {
         viviendas.forEach(v ->
                 v.setInmobiliaria(null));
     }
+
+    public void addGestor(Usuario gestor) {
+        this.getGestores().add(gestor);
+        gestor.setInmobiliaria(this);
+    }
+
+    public void removeGestor(Usuario gestor) {
+        gestor.setInmobiliaria(null);
+        this.getGestores().add(gestor);
+    }
+
 }
 
 

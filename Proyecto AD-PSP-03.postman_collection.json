@@ -30,7 +30,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"asdfdsdsg@gmail.com\",\r\n    \"password\":\"holahola\"\r\n}",
+									"raw": "{\r\n    \"email\":\"propVivienda1@gmail.com\",\r\n    \"password\":\"asdfg\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -112,99 +112,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"gestorusertestg@gmail.com\",\r\n    \"password\":\"testgestor\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/auth/login",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Login Propietario (Con vivienda)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);\r",
-											"pm.collectionVariables.set(\"token\", jsonData.token);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"propVivienda@gmail.com\",\r\n    \"password\":\"asdfg\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/auth/login",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Login gestor (Con inmobiliaria)(Terminar)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);\r",
-											"pm.collectionVariables.set(\"token\", jsonData.token);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\":\"propVivienda@gmail.com\",\r\n    \"password\":\"asdfg\"\r\n}",
+									"raw": "{\r\n    \"email\":\"gest3@gmail.com\",\r\n    \"password\":\"asdfg\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -269,7 +177,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjM3NzkyNTY4LCJlbWFpbCI6ImRlbHVuYS5yb2RhbjIxQGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiJ9.SeuaiU5QnF_kyu5K8zuvRVq1RJaNYgAIaQtxG_GANos",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
