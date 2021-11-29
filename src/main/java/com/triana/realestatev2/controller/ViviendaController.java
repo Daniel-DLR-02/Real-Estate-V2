@@ -1,9 +1,6 @@
 package com.triana.realestatev2.controller;
 
-import com.triana.realestatev2.dto.ViviendaDto.CreateViviendaDto;
-import com.triana.realestatev2.dto.ViviendaDto.GetViviendaDto;
-import com.triana.realestatev2.dto.ViviendaDto.GetViviendaPropietarioDto;
-import com.triana.realestatev2.dto.ViviendaDto.ViviendaDtoConverter;
+import com.triana.realestatev2.dto.ViviendaDto.*;
 import com.triana.realestatev2.model.Inmobiliaria;
 import com.triana.realestatev2.model.Vivienda;
 import com.triana.realestatev2.service.InmobiliariaService;
@@ -129,6 +126,24 @@ public class ViviendaController {
             }
         }
         return ResponseEntity.noContent().build();
+    }
+/*
+    @GetMapping("/vivienda/interesa")
+    public ResponseEntity<List<GetViviendaInteresaDto>> getViviendasConInteresDto(@AuthenticationPrincipal Usuario user){
+
+        Optional<Usuario> userBuscado = usuarioService.findById(user.getId());
+
+        return ResponseEntity.ok(viviendaService.getViviendaConComprobacionInteres(user.getId()));
+
+
+    }
+*/
+
+    @GetMapping("/vivienda/enpropiedad")
+    public ResponseEntity<List<GetViviendaDto>> getViviendasPropietario(@AuthenticationPrincipal Usuario user){
+
+        return ResponseEntity.ok(viviendaService.getViviendaDtoListProp(user));
+
     }
 
     @PostMapping("/{idViv}/inmobiliaria/{idInmo}")

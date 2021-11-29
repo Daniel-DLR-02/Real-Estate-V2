@@ -1,6 +1,7 @@
 package com.triana.realestatev2.service;
 
 import com.triana.realestatev2.dto.ViviendaDto.GetViviendaDto;
+import com.triana.realestatev2.dto.ViviendaDto.GetViviendaInteresaDto;
 import com.triana.realestatev2.dto.ViviendaDto.ViviendaDtoConverter;
 import com.triana.realestatev2.model.Vivienda;
 import com.triana.realestatev2.repository.ViviendaRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,17 +24,12 @@ public class ViviendaService
 
     private final UsuarioService userService;
     private final ViviendaDtoConverter dtoConverter;
+    /*
+    public List<GetViviendaInteresaDto> getViviendaConComprobacionInteres(UUID id){
+        return repositorio.listaViviviendasConInteres(id);
+    }*/
 
-    public List<GetViviendaDto> getViviendaDtoListProp(Usuario user){
 
-        List<GetViviendaDto> listaGetViviendas = new ArrayList<>();
-        Optional<Usuario> prop = userService.findById(user.getId());
-        if(prop.isPresent()) {
-            List<Vivienda> viviendasPropList = prop.get().getViviendas();
-            listaGetViviendas = viviendasPropList.stream().map(dtoConverter::viviendaToGetViviendaDto).collect(Collectors.toList());
-        }
-        return listaGetViviendas;
 
-    }
 
 }

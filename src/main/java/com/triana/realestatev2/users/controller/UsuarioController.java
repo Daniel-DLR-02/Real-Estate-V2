@@ -48,16 +48,7 @@ public class UsuarioController {
         });
         return ResponseEntity.ok(listaPropietarios);
     }
-    @GetMapping("/vivienda/enpropiedad")
-    public ResponseEntity<List<GetViviendaDto>> getViviendasPropietario(@AuthenticationPrincipal Usuario user){
-        Optional<Usuario> propietario = usuarioService.findById(user.getId());
 
-        if(propietario.isPresent()) {
-            return ResponseEntity.ok(viviendaService.getViviendaDtoListProp(propietario.get()));
-        }else{
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-    }
 
 
     @PostMapping("/auth/register/gestor")
