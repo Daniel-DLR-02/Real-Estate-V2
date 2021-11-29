@@ -1,5 +1,8 @@
 package com.triana.realestatev2.users.controller;
 
+import com.triana.realestatev2.dto.ViviendaDto.GetViviendaDto;
+import com.triana.realestatev2.model.Vivienda;
+import com.triana.realestatev2.service.ViviendaService;
 import com.triana.realestatev2.users.dto.*;
 import com.triana.realestatev2.users.model.Usuario;
 import com.triana.realestatev2.users.model.UsuarioRole;
@@ -26,7 +29,7 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
     private final UsuarioDtoConverter usuarioDtoConverter;
-
+    private final ViviendaService viviendaService;
     @PostMapping("/auth/register/user")
     public ResponseEntity<GetUsuarioDto> nuevoUsuario(@RequestBody CreateUsuarioDto nuevoUsuario){
         Usuario saved = usuarioService.saveProp(nuevoUsuario);
@@ -45,6 +48,17 @@ public class UsuarioController {
         });
         return ResponseEntity.ok(listaPropietarios);
     }
+    @GetMapping("/vivienda/enpropiedad")
+    public ResponseEntity<List<GetViviendaDto>> getViviendasPropietario(@AuthenticationPrincipal Usuario user){
+        Optional<Usuario> propietario = usuarioService.findById(user.getId());
+
+        if(propietario.isPresent()) {
+            return ResponseEntity.ok(viviendaService.getViviendaDtoListProp(propietario.get()));
+        }else{
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+    }
+
 
     @PostMapping("/auth/register/gestor")
     public ResponseEntity<GetUsuarioDto> nuevoGestor(@RequestBody CreateUsuarioGestorDto nuevoUsuario){
