@@ -79,6 +79,7 @@ public class UsuarioService extends BaseService<Usuario, UUID, UsuarioRepository
                     .inmobiliaria(null)
                     .build();
 
+
             Optional<Inmobiliaria> inmobiliariaBuscada = inmobiliariaService.findById(nuevoUser.getIdInmobiliaria());
 
             if(inmobiliariaBuscada.isPresent())
@@ -93,7 +94,7 @@ public class UsuarioService extends BaseService<Usuario, UUID, UsuarioRepository
 
     }
 
-    public List<Usuario> findProps() throws UsernameNotFoundException {
+    public List<Usuario> findProps() throws UsernameNotFoundException { // TODO Quién se encarga de lanzar esta excepción?
         return this.repositorio.findByRole(UsuarioRole.PROPIETARIO);
     }
 
@@ -120,7 +121,7 @@ public class UsuarioService extends BaseService<Usuario, UUID, UsuarioRepository
 
     public List<GetUsuarioDto> listaUsuarioToListGetUsuarioDto(List<Usuario> users){
         List<GetUsuarioDto> getUsuariosDto = new ArrayList<>();
-        users.stream().forEach(g -> {
+        users.stream().forEach(g -> { // TODO Se puede cambiar por .map
             getUsuariosDto.add(usuarioDtoConverter.usuarioToGetUsuarioDto(g));
         });
         return getUsuariosDto;

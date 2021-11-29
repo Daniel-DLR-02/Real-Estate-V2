@@ -68,8 +68,8 @@ public class Usuario implements UserDetails {
 
 
     @Builder.Default
-    @JsonIgnore
-    @OneToMany(mappedBy = "interesado",fetch = FetchType.EAGER)
+    @JsonIgnore // TODO Usar esta anotación para no hacer un buen uso de las asociaciones y DTOs me pone triste :(
+    @OneToMany(mappedBy = "interesado",fetch = FetchType.EAGER)  // TODO Idem a lo anterior
     private List<Interesa> interesa = new ArrayList<>();
 
     @Builder.Default

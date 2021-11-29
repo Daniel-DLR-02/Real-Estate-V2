@@ -34,7 +34,7 @@ public class ViviendaController {
     @PostMapping("/")
     public ResponseEntity<?> create(@RequestBody CreateViviendaDto viviendaACrear, @AuthenticationPrincipal Usuario propietarioVivienda){
 
-        if (propietarioVivienda.getRole().equals(UsuarioRole.PROPIETARIO)) {
+        if (propietarioVivienda.getRole().equals(UsuarioRole.PROPIETARIO)) { // TODO ¿Esto se podría haber gestionado directamente en la clase SecurityConfig?
 
             Vivienda viv = dtoConverter.createViviendaDtoToVivienda(viviendaACrear);
             viv.addPropietario(propietarioVivienda);

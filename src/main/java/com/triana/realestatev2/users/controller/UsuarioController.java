@@ -40,7 +40,7 @@ public class UsuarioController {
     @GetMapping("/propietario/")
     public ResponseEntity<List<GetUsuarioDto>> getPropietarios(){
         List<GetUsuarioDto> listaPropietarios = new ArrayList<>();
-        usuarioService.findProps().stream().forEach(v->{
+        usuarioService.findProps().stream().forEach(v->{ // TODO Pardiez! Y para qué está el método MAP de los streams?
             listaPropietarios.add(usuarioDtoConverter.usuarioToGetUsuarioDto(v));
         });
         return ResponseEntity.ok(listaPropietarios);
