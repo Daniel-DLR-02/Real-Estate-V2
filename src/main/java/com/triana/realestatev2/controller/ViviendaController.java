@@ -127,8 +127,8 @@ public class ViviendaController {
         }
         return ResponseEntity.noContent().build();
     }
-/*
-    @GetMapping("/vivienda/interesa")
+
+   /* @GetMapping("/interesa")
     public ResponseEntity<List<GetViviendaInteresaDto>> getViviendasConInteresDto(@AuthenticationPrincipal Usuario user){
 
         Optional<Usuario> userBuscado = usuarioService.findById(user.getId());
@@ -136,13 +136,13 @@ public class ViviendaController {
         return ResponseEntity.ok(viviendaService.getViviendaConComprobacionInteres(user.getId()));
 
 
-    }
-*/
+    }*/
 
-    @GetMapping("/vivienda/enpropiedad")
+
+    @GetMapping("/enpropiedad")
     public ResponseEntity<List<GetViviendaDto>> getViviendasPropietario(@AuthenticationPrincipal Usuario user){
 
-        return ResponseEntity.ok(viviendaService.getViviendaDtoListProp(user));
+        return ResponseEntity.ok(viviendaService.getListViviendasPropietario(user.getId()));
 
     }
 

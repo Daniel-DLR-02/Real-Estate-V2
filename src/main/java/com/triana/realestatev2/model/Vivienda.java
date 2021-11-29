@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 @Builder
+@Table(name="vivienda")
 public class Vivienda {
 
     @Id
