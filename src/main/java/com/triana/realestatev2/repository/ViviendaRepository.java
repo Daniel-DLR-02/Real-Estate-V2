@@ -15,16 +15,30 @@ public interface ViviendaRepository
         extends JpaRepository<Vivienda,Long> {
 
     /*@Query(value ="""
-               SELECT com.triana.realstatev2.dto.GetViviendaInteresaDto(v.id,v.descripcion,v.titulo,v.poblacion,
+               SELECT new com.triana.realstatev2.dto.GetViviendaInteresaDto(v.id,v.descripcion,v.titulo,v.poblacion,
                v.tipo,v.precio,(CASE
-                                    WHEN (SELECT COUNT(*) FROM Interesa i WHERE i.vivienda = v.id 
+                                    WHEN (SELECT COUNT(*) FROM Interesa i WHERE i.vivienda = v.id
                                             AND i.interesado =:id_usuario) =1 THEN true
                                             ELSE false
                                     END))
                FROM Vivienda v
-               
+
            """)
     List<GetViviendaInteresaDto> listaViviviendasConInteres(@Param("id_usuario") UUID id_usuario);*/
+
+
+    @Query(value ="""
+               SELECT new com.triana.realstatev2.dto.GetViviendaInteresaDto(v.id,v.descripcion,v.titulo,v.poblacion,
+               v.tipo,v.precio, (
+                                    SELECT CASE count(*) > 0 THEN true ELSE false END
+                                    FROM Interesa i
+                                    WHERE i.vivienda.id = v.id AND i.propietario.id = id_usuario
+                                )
+               FROM Vivienda v
+
+           """)
+    List<GetViviendaInteresaDto> listaViviviendasConInteres(@Param("id_usuario") UUID id_usuario);
+
 
     /*@Query(value="""
             SELECT com.triana.realestatev2.dto.ViviendaDto.GetViviendaDto(v.id,v.descripcion,v.titulo,v.avatar,

@@ -25,9 +25,9 @@ public class ViviendaService
     private final UsuarioService userService;
     private final ViviendaDtoConverter dtoConverter;
 
-    /*public List<GetViviendaInteresaDto> getViviendaConComprobacionInteres(UUID id){
+    public List<GetViviendaInteresaDto> getViviendaConComprobacionInteres(UUID id){
         return repositorio.listaViviviendasConInteres(id);
-    }*/
+    }
 
     public List<GetViviendaDto> getListViviendasPropietario(UUID id){
         return repositorio.getViviendasPropietario(id).stream().map(dtoConverter::viviendaToGetViviendaDto).collect(Collectors.toList());
